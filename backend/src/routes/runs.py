@@ -12,3 +12,5 @@ def index(db:Session=Depends(get_db),user=Depends(current_user)):return runs.lis
 def detail(id:int,db:Session=Depends(get_db),user=Depends(current_user)):return row(runs.get_run(db,id))
 @router.post('/runs',status_code=201)
 def create(data:RunInput,db:Session=Depends(get_db),user=Depends(writers)):return runs.create_run(db,data,user)
+@router.post('/runs/{id}/retry')
+def retry(id:int,db:Session=Depends(get_db),user=Depends(writers)):return runs.retry_run(db,id,user)
